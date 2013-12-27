@@ -1,0 +1,23 @@
+member(X,[X|R]).
+member(X,[Y|R]) :- member(X,R).
+
+/*
+X is a member of a list whose first element is X as the base case .
+X is a member of a list whose tail is R, provided X is a member of R.
+*/
+
+dfs1(Start, Goal, Path) :- phrase(dfsI(Start, [], Goal), Path).
+
+/*
+We call dfs to find paths from start to goal.
+*/
+
+dfsI(Node, _, Goal)   --> [Node], { call(Goal, Node) }.
+dfsI(No, E, Goal) --> [No],{ s(No,N), not member(N, E) },dfsI(N, [No|E], Goal).
+
+/*
+We define procedures dfs to backtrack(iteratively) and determine all paths from the start to the goal.
+Since prolog uses DFS to find the answers, we make use of the built-in chronoligcal backtracking
+to get the path from start state to goal.
+*/
+

@@ -1,0 +1,7 @@
+Connect(cell1 ,cell0)
+Connect(cell2 ,cell1)
+Connect(cell3 ,cell2)
+Connect(cell4 ,cell3)
+Connect(cell5 ,cell4)
+Connect(cell6 ,cell5)
+Connect(cell7 ,cell6)

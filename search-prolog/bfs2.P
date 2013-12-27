@@ -1,0 +1,68 @@
+member(X,[X|R]).
+
+member(X,[Y|R]) :- member(X,R).
+
+
+
+/*
+
+X is a member of a list whose first element is X as the base case .
+
+X is a member of a list whose tail is R, provided X is a member of R.
+
+*/
+
+
+addQ(Q,X,[X|Q]).
+
+addQ(Q,[],Q).
+
+addQ([],X,X).
+
+ 
+
+/*
+
+If you add X to Q its appended to the beginning of Q.
+
+If you add an empty [] to Q, Q remains the same.
+
+If you add X to empty [], we get X.
+ 
+*/
+
+
+bfs(S,Path) :-addQ([],S,Q2), bfs1(Q2,Path).
+ 
+
+
+
+/*
+
+bfs/2 returns true if there is a path from S to the goal.
+
+*/
+
+
+bfs1(Q,[G,S|Tail]) :- addQ(_,[S|Tail],Q), s(S,G), goal(G).
+
+
+bfs1(Q1,Solution) :- addQ(Q2,[S|Tail],Q1), findall([Succ,S|Tail],
+(s(S,Succ),
+       
+not member(Succ,Tail)), NewPaths), concat(NewPaths,Q2,Q3), bfs1(Q3,Solution).
+ 
+/*
+Iteratively compute bfs1 adding the child elements of each node that is processed. 
+Add the elements to the list to compute the final path.
+*/
+
+
+concat([],L,L).
+
+
+/* Base case for concatenation*/  
+
+concat([X|L1],L2,[X|L3]) :- concat(L1,L2,L3).
+
+/* Recursive case for concatenation*/
